@@ -32,5 +32,10 @@ Gerar a key do projeto Laravel
 php artisan key:generate
 ```
 
+Carregar as tabelas no banco de dados
+```sh
+php artisan migrate
+```
+
 Acesse o projeto
 [http://localhost:8000](http://localhost:8000)
