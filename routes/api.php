@@ -12,6 +12,8 @@ Route::get('/courses/{id}', [CourseController::class, 'read']);
 Route::get('/courses/{id}/modules', [ModuleController::class, 'index']);
 Route::get('/modules/{id}/lessons', [LessonController::class, 'index']);
 Route::get('/lessons/{id}', [LessonController::class, 'read']);
+Route:get('/lessons/{id}/support', [SupportController::class, 'index']);
+
 Route::get('/', function(){
 
     return response()->json([
