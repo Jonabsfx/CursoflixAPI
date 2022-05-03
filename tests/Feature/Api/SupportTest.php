@@ -37,7 +37,7 @@ class SupportTest extends TestCase
         ]);
 
         $response->assertStatus(200)
-                    ->assertJsonCount(100, 'data');
+                    ->assertJsonCount(50, 'data');
     }
 
     public function test_get_supports_unauthenticated()
