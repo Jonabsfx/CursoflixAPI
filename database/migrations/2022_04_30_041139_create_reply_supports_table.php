@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('reply_suport', function (Blueprint $table) {
+        Schema::create('reply_support', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('user_id')->nullable(false);
             $table->uuid('support_id')->nullable(false);
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reply_suport');
+        Schema::dropIfExists('reply_support');
     }
 };

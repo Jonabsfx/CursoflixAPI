@@ -1,26 +1,41 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace Tests\Feature\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreReplySupport;
-use App\Http\Resources\ReplySupportResource;
-use App\Repositories\ReplySupportRepository;
-use Illuminate\Http\Request;
+use App\Models\Support;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
 
-class ReplySupportController extends Controller
+class ReplySupportTest extends TestCase
 {
-    protected $repository;
+    use UtilsTrait;
 
-    public function __construct(ReplySupportRepository $replySupportRepository)
+    public function test_create_reply_to_support_unauthenticated()
     {
-        $this->repository = $replySupportRepository;
+        $response = $this->postJson('/replies');
+
+        $response->assertStatus(401);
     }
 
-    public function createReply(StoreReplySupport $request)
+    public function test_create_reply_to_support_error_validations()
     {
-        $reply = $this->repository->createReplyToSupport($request->validated());
+        $response = $this->postJson('/replies', [], $this->defaultHeaders());
 
-        return new ReplySupportResource($reply);
+        $response->assertStatus(422);
+    }
+
+    public function test_create_reply_to_support()
+    {
+        $support = Support::factory()->create();
+
+        $payload = [
+            'support' => $support->id,
+            'description' => 'test description reply support',
+        ];
+
+        $response = $this->postJson('/replies', $payload, $this->defaultHeaders());
+
+        $response->assertStatus(201);
     }
 }
